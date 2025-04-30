@@ -1,0 +1,48 @@
+@charset "utf-8";
+
+/* set */
+body,p,div,span,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,legend,input,textarea,button,select{margin:0; padding:0; font-style:inherit; vertical-align: baseline; font-weight: normal;}
+/* input,textarea,button,select{font-size:16px;} */
+html,body{height: 100%; font-size: 15px; font-family: "Pretendard Variable", Pretendard, sans-serif;color: var(--b-01); }
+img, fieldset, button{border:0;}
+textarea{overflow:auto;}
+input:not([type="radio"]){min-height:30px;}
+input[type=submit],
+input[type=button],
+button{cursor:pointer;background:transparent;border-radius: 0; cursor: pointer;}
+img{vertical-align:top;display:block;}
+address, em{font-style:normal;}
+table{border-spacing:0; border-collapse:collapse;}
+table,th,td{border:none;}
+caption{overflow:hidden; line-height:0; text-indent:-2000em;}
+legend, .hidden{padding:0; margin:0; overflow:hidden !important; text-indent:100%; white-space:nowrap; font-size:0;}
+i{font-style:normal;}
+*,
+*::before,
+*::after{box-sizing:border-box;}
+::placeholder{font-weight:200 !important; color:#ababab !important;}
+
+/* select */
+select{border:none;border: 1px solid #ddd;width: 100%;background: #fff;-webkit-appearance: none;-moz-appearance:none;appearance:none;background: url(../img/arrow-select.svg) no-repeat 97% 50% !important;background-size: 11px !important;min-height: 40px;padding-left: 10px;}
+select::-ms-expand { display: none;}
+
+/* set mobile */
+html{-ms-text-size-adjust: none;-webkit-text-size-adjust: none;-moz-text-size-adjust: none;text-size-adjust: none;}
+body,textarea:focus,input:focus,a:focus{-webkit-tap-highlight-color: rgba(107, 120, 245, .08);} 
+body{-webkit-touch-callout: none;}
+
+/* set for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display:block;}
+figure{padding:0px; margin:0px;}
+figure img{width:100%; height:100%; object-fit:cover; object-position:center;}
+
+/* set link */
+a{margin:0; padding:0; background:transparent; font-size:100%; color:#222; color:inherit; text-decoration:none; cursor:pointer;}
+a:visited{/* color:#666; */}
+
+/* set list */
+ul,ol,li{list-style:none;}
+
+/* ms에서 엑스박스 문제 해결 */
+br{font-family: inherit !important; opacity: 0;}
+
