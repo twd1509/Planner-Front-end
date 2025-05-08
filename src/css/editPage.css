@@ -1,0 +1,79 @@
+/* ✅ 회원정보 수정 페이지 전용 설정 */
+.mypage-edit-wrapper .container {
+    width: 768px;
+    min-height: 480px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-color: #ebecf0;
+    box-shadow: -5px -5px 10px #fff, 5px 5px 10px #babebc;
+  }
+
+  /* ✅ 오버레이 제거 */
+  .mypage-edit-wrapper .overlay-left,
+  .mypage-edit-wrapper .overlay-right {
+    display: none !important;
+  }
+  
+  /* ✅ 전환 애니메이션 무효화 */
+  .mypage-edit-wrapper .container.right-panel-active .sign-up-container {
+    transform: none !important;
+    opacity: 1 !important;
+    z-index: 2 !important;
+  }
+  
+  /* ✅ 수정 폼이 전체 너비를 사용하도록 */
+  .mypage-edit-wrapper .sign-up-container {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    transform: none !important;
+    opacity: 1 !important;
+    z-index: 2 !important;
+  }
+  
+  /* ✅ 폼 넓이와 정렬 */
+  .mypage-edit-wrapper .sign-up-container form {
+    max-width: 400px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .login-wrapper form {
+    padding-top: 40px; /* 상단 여백 추가 */
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: flex-start; /* top에 맞춰 배치 */
+    align-items: center;
+  }
+
+.mypage-profile-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mypage-image-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: -5px -5px 10px #fff, 5px 5px 10px #babebc;
+  margin-bottom: 10px;
+}
+
+.mypage-image.profile {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

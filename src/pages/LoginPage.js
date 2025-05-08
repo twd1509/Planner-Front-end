@@ -1,16 +1,26 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "../css/LoginPage.css";
+import { formatPhoneNumber } from "../utils/functions";
 
 function LoginPage() {
   const containerRef = useRef(null);
+  const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user?.id) {
+      window.location.href = "/";
+    }
+  }, [user, navigate]);
 
   const [isSignUp, setIsSignUp] = useState(false);
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPw, setLoginPw] = useState("");
   const [signupName, setSignupName] = useState("");
   const [signupEmail, setSignupEmail] = useState("");
+  const [signupPhone, setSignupPhone] = useState("");
   const [signupPw, setSignupPw] = useState("");
 
   useEffect(() => {
@@ -36,13 +46,12 @@ function LoginPage() {
         const data = await res.json();
         localStorage.setItem("userInfo", JSON.stringify(data));
         alert("로그인 성공!");
-        navigate("/");
+        window.location.href = "/";
       } else {
         const errorData = await res.text();
         throw new Error(errorData);
       }
     } catch (error) {
-      console.error("로그인 실패 : ", error);
       alert("로그인 실패 : " + error.message);
     }
   };
@@ -56,6 +65,7 @@ function LoginPage() {
         body: JSON.stringify({
           name: signupName,
           email: signupEmail,
+          phone: signupPhone,
           pw: signupPw,
         }),
       });
@@ -63,12 +73,11 @@ function LoginPage() {
       if (!res.ok) throw new Error("Signup failed");
 
       const data = await res.text();
-      console.log("회원가입 성공:", data);
       alert("회원가입 성공!");
+      window.location.href = "/";
 
       setIsSignUp(false);
     } catch (error) {
-      console.error("회원가입 실패:", error);
       alert("회원가입 실패: " + error.message);
     }
   };
@@ -100,6 +109,13 @@ function LoginPage() {
                 value={signupEmail}
                 onChange={(e) => setSignupEmail(e.target.value)}
                 required
+              />
+              <input
+                type="text"
+                placeholder="Phone"
+                value={signupPhone}
+                onChange={(e) => setSignupPhone(formatPhoneNumber(e.target.value))}
+                maxLength={13}
               />
               <input
                 type="password"
@@ -137,6 +153,13 @@ function LoginPage() {
                 required
               />
               <button className="form_btn" type="submit">Sign In</button>
+              <button
+                type="button"
+                className="form_btn"
+                onClick={() => navigate("/find")}
+              >
+                Find
+              </button>
             </form>
           </div>
 
@@ -149,7 +172,7 @@ function LoginPage() {
             </div>
             <div className="overlay-right">
               <h1>Hello, Friend</h1>
-              <p>Enter your personal details and start journey with us</p>
+              <p>Enter your personal details and start planner with us</p>
               <button className="overlay_btn" onClick={() => setIsSignUp(true)}>Sign Up</button>
             </div>
           </div>

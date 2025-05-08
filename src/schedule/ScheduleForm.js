@@ -22,7 +22,7 @@ const ScheduleModal = ({ isOpen, onClose, onSave }) => {
     const newEvent = { data };
     onSave(newEvent);
     onClose();
-    fetch("/api/save", {
+    fetch("http://localhost:8082/api/save", {
       method: "POST",
       headers: {
         "Content-Type": "application/json", // JSON 타입 명시
