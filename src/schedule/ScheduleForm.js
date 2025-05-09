@@ -16,12 +16,12 @@ const ScheduleModal = ({ isOpen, onClose, onSave }) => {
     state: "",
     category: "",
     color: "",
+    regDate: "",
   });
 
   const handleSubmit = () => {
-    const newEvent = { data };
-    onSave(newEvent);
-    onClose();
+    const newEvent = data;
+    console.log(newEvent);
     fetch("http://localhost:8082/api/save", {
       method: "POST",
       headers: {
@@ -46,6 +46,8 @@ const ScheduleModal = ({ isOpen, onClose, onSave }) => {
         console.error("전송 실패:", error);
         alert("데이터 전송 실패");
       });
+    onSave(newEvent);
+    onClose();
   };
 
   const changeValue = (e) => {

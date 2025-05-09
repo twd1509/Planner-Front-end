@@ -3,6 +3,7 @@ import Header from "../pages/Header";
 import "../css/style.css";
 import "../css/common.css";
 import "../css/profile_home.css";
+import "../css/Schedule.css";
 
 function HomePage() {
   const today = new Date();
@@ -11,11 +12,11 @@ function HomePage() {
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
   const firstDay = new Date(year, month, 1);
-  const lastDay = new Date(year, month + 1, 0);
-  const startDay = firstDay.getDay();
-  const totalDays = lastDay.getDate();
+  const lastDay = new Date(year, month + 1, 0); // 이전 달의 마지막날
+  const startDay = firstDay.getDay(); // getDay - 요일
+  const totalDays = lastDay.getDate(); // 마지막 일 - 31
   const prevLastDay = new Date(year, month, 0).getDate();
-
+  console.log(month);
   const daysArray = [];
 
   for (let i = startDay - 1; i >= 0; i--) {
@@ -26,9 +27,29 @@ function HomePage() {
     daysArray.push({ day: i, currentMonth: true });
   }
 
+  let nextDay = 1;
   while (daysArray.length % 7 !== 0) {
-    daysArray.push({ day: daysArray.length % 7, currentMonth: false });
+    daysArray.push({ day: nextDay++, currentMonth: false });
   }
+
+  const firstDayStr = firstDay.toISOString().split("T")[0]; // "2025-05-01"
+  const lastDayStr = lastDay.toISOString().split("T")[0];
+
+  const [schedules, setSchedules] = useState([]);
+
+  useEffect(() => {
+    fetch(
+      `http://localhost:8082/api/scheduleList?firstday=${firstDayStr}&lastday=${lastDayStr}`
+    ) // 일정 불러오는 백엔드 API 주소
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setSchedules(data); // 예: [{title, startDate, endDate, color}]
+      })
+      .catch((err) => {
+        console.error("일정 불러오기 실패:", err);
+      });
+  }, []);
 
   return (
     <>
@@ -72,7 +93,47 @@ function HomePage() {
                               !date.currentMonth ? "disabled" : ""
                             } ${isToday ? "today" : ""}`}
                           >
-                            <i>{date.day}</i>
+                            <i className="day-number">{date.day}</i>
+                            <div className="schedules">
+                              {/* <div
+                                className="schedule-bar"
+                                style={{ backgroundColor: "#1E90FF" }}
+                              >
+                                회의
+                              </div> */}
+                              {schedules.map((schedule, index) => (
+                                <div key={index} className="schedule-item">
+                                  <div className="schedule-title">
+                                    {schedule.title}
+                                  </div>
+                                  <div className="schedule-time">
+                                    {schedule.startDate} ~ {schedule.endDate}
+                                  </div>
+                                </div>
+                              ))}
+                              {date.day >= 4 && date.day <= 6 && (
+                                <div>
+                                  <div
+                                    className="schedule-bar"
+                                    style={{
+                                      backgroundColor: "#1E90FF",
+                                    }}
+                                  >
+                                    {date.day === 4 && "회의"}{" "}
+                                    {/* 시작일에만 텍스트 */}
+                                  </div>
+                                  <div
+                                    className="schedule-bar"
+                                    style={{
+                                      backgroundColor: "#1E90FF",
+                                    }}
+                                  >
+                                    {date.day === 4 && "회의2"}{" "}
+                                    {/* 시작일에만 텍스트 */}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
                           </td>
                         );
                       })}
