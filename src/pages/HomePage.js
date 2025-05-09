@@ -16,7 +16,7 @@ function HomePage() {
   const startDay = firstDay.getDay(); // getDay - 요일
   const totalDays = lastDay.getDate(); // 마지막 일 - 31
   const prevLastDay = new Date(year, month, 0).getDate();
-  console.log(month);
+  
   const daysArray = [];
 
   for (let i = startDay - 1; i >= 0; i--) {
@@ -86,6 +86,13 @@ function HomePage() {
                           month === today.getMonth() &&
                           date.day === today.getDate();
 
+                          let nowDate = null;
+                          if(date.currentMonth){
+                            const paddedMonth = String(month+1).padStart(2, '0');
+                            const paddedDay = String(date.day).padStart(2, '0');
+                            nowDate = year+"-"+paddedMonth+"-"+paddedDay;
+                          }
+                          
                         return (
                           <td
                             key={idx}
@@ -95,44 +102,28 @@ function HomePage() {
                           >
                             <i className="day-number">{date.day}</i>
                             <div className="schedules">
-                              {/* <div
-                                className="schedule-bar"
-                                style={{ backgroundColor: "#1E90FF" }}
-                              >
-                                회의
-                              </div> */}
-                              {schedules.map((schedule, index) => (
-                                <div key={index} className="schedule-item">
-                                  <div className="schedule-title">
-                                    {schedule.title}
-                                  </div>
-                                  <div className="schedule-time">
-                                    {schedule.startDate} ~ {schedule.endDate}
-                                  </div>
-                                </div>
-                              ))}
-                              {date.day >= 4 && date.day <= 6 && (
-                                <div>
-                                  <div
-                                    className="schedule-bar"
-                                    style={{
-                                      backgroundColor: "#1E90FF",
-                                    }}
-                                  >
-                                    {date.day === 4 && "회의"}{" "}
-                                    {/* 시작일에만 텍스트 */}
-                                  </div>
-                                  <div
-                                    className="schedule-bar"
-                                    style={{
-                                      backgroundColor: "#1E90FF",
-                                    }}
-                                  >
-                                    {date.day === 4 && "회의2"}{" "}
-                                    {/* 시작일에만 텍스트 */}
-                                  </div>
-                                </div>
-                              )}
+                              {schedules.map((schedule, index) =>{
+                                 if (nowDate >= schedule.startDate && nowDate <= schedule.endDate){
+                                  return(
+                                    <div key={index} className="schedule-item">
+                                      {/* <div className="schedule-title">
+                                        {nowDate == schedule.startDate ? schedule.title : ""}
+                                      </div>
+                                      <div className="schedule-time">
+                                        {schedule.startDate} ~ {schedule.endDate}
+                                      </div> */}
+                                      <div
+                                        className="schedule-bar"
+                                        style={{
+                                          backgroundColor: "#1E90FF",
+                                        }}
+                                      >
+                                        {nowDate == schedule.startDate ? schedule.title : ""}
+                                      </div>
+                                    </div>
+                                  )
+                                }
+                              })}
                             </div>
                           </td>
                         );

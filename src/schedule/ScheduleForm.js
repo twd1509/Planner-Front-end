@@ -38,6 +38,7 @@ const ScheduleModal = ({ isOpen, onClose, onSave }) => {
       })
       .then((data) => {
         // 위에서 response.json()이 완료된 후 실제 데이터를 다룸
+        window.location.reload();
         console.log("서버 응답:", data);
         alert("성공적으로 전송되었습니다.");
       })
