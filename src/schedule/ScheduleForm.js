@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../css/ScheduleForm.module.css";
+import { LocalHostInfoContext } from "../context/LocalHostInfoContext";
 
-const ScheduleModal = ({ isOpen, onClose, onSave }) => {
+const ScheduleModal = ({ isOpen, onClose, onSave, onNo }) => {
+  
   const [data, setData] = useState({
+    no: 0,
     title: "",
     startDate: "",
     endDate: "",
@@ -18,12 +21,37 @@ const ScheduleModal = ({ isOpen, onClose, onSave }) => {
     color: "",
     regDate: "",
   });
-
+  
+    useEffect(() => {
+      if(onNo){
+        
+        fetch(
+          `${LocalHostInfoContext.schedulePath}/api/getSchedule?no=${onNo}`
+        ) // 일정 불러오는 백엔드 API 주소
+        .then((res) => res.json())
+        .then((info) => {
+          // console.log(info);  // 실제 반환 값 확인
+          setData(info); // 예: [{title, startDate, endDate, color}]
+          
+        })
+        .catch((err) => {
+          console.error("일정 불러오기 실패:", err);
+        });
+      }
+    },[onNo]);
   const handleSubmit = () => {
     const newEvent = data;
     console.log(newEvent);
-    fetch("http://localhost:8082/api/save", {
+    let path = "";
+    if(onNo == ""){
+      path = "save";
+    }else{
+      path = "modify";
+    }
+    console.log(path);
+    fetch(`${LocalHostInfoContext.schedulePath}/api/${path}`, {
       method: "POST",
+      // credentials: "include", // 쿠키를 포함하도록 설정
       headers: {
         "Content-Type": "application/json", // JSON 타입 명시
       },

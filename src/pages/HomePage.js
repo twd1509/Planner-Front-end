@@ -4,6 +4,9 @@ import "../css/style.css";
 import "../css/common.css";
 import "../css/profile_home.css";
 import "../css/Schedule.css";
+import ScheduleForm from "../schedule/ScheduleForm";
+import { LocalHostInfoContext } from "../context/LocalHostInfoContext";
+
 
 function HomePage() {
   const today = new Date();
@@ -39,17 +42,27 @@ function HomePage() {
 
   useEffect(() => {
     fetch(
-      `http://localhost:8082/api/scheduleList?firstday=${firstDayStr}&lastday=${lastDayStr}`
+      `${LocalHostInfoContext.schedulePath}/api/scheduleList?firstday=${firstDayStr}&lastday=${lastDayStr}`
     ) // 일정 불러오는 백엔드 API 주소
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        
         setSchedules(data); // 예: [{title, startDate, endDate, color}]
       })
       .catch((err) => {
         console.error("일정 불러오기 실패:", err);
       });
   }, []);
+
+  //일정 등록
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [events, setEvents] = useState([]);
+    const [no, setNo] = useState([]);
+  
+    const handleSave = (event) => {
+      setEvents([...events, event]);
+      console.log("일정 등록됨:", event);
+    };
 
   return (
     <>
@@ -58,6 +71,8 @@ function HomePage() {
         setCurrentDate={setCurrentDate}
         today={today}
       />
+
+     
 
       <div id="container">
         <div className="wrap">
@@ -103,9 +118,13 @@ function HomePage() {
                             <i className="day-number">{date.day}</i>
                             <div className="schedules">
                               {schedules.map((schedule, index) =>{
+                                  
                                  if (nowDate >= schedule.startDate && nowDate <= schedule.endDate){
                                   return(
-                                    <div key={index} className="schedule-item">
+                                    <div key={index} className="schedule-item" onClick={() => {
+                                      setIsModalOpen(true);
+                                      setNo(schedule.no);
+                                      }}>
                                       {/* <div className="schedule-title">
                                         {nowDate == schedule.startDate ? schedule.title : ""}
                                       </div>
@@ -120,10 +139,15 @@ function HomePage() {
                                       >
                                         {nowDate == schedule.startDate ? schedule.title : ""}
                                       </div>
+                                      
                                     </div>
+
+                                     
                                   )
                                 }
                               })}
+
+                              
                             </div>
                           </td>
                         );
@@ -135,6 +159,13 @@ function HomePage() {
           </table>
         </div>
       </div>
+      {/* 일정 등록 폼 */}
+                              <ScheduleForm
+                                isOpen={isModalOpen}
+                                onClose={() => setIsModalOpen(false)}
+                                onSave={handleSave}
+                                onNo={no}
+                              />
     </>
   );
 }

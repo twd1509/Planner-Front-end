@@ -141,6 +141,7 @@ function Header({ currentDate, setCurrentDate, today }) {
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
             onSave={handleSave}
+            onNo=""
           />
 
           <a ref={profileRef} className="profile">
