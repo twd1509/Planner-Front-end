@@ -69,16 +69,31 @@ function Header({ currentDate, setCurrentDate, today }) {
         <h1>
           <button
             onClick={() =>
-              setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1))
+              setCurrentDate(
+                new Date(
+                  currentDate.getFullYear(),
+                  currentDate.getMonth() - 1,
+                  1
+                )
+              )
             }
             className="btn-arrow prev"
           >
             이전
           </button>
-          <p>{currentDate.getFullYear()}년 {currentDate.getMonth() + 1}월 {today.getDate()}일</p>
+          <p>
+            {currentDate.getFullYear()}년 {currentDate.getMonth() + 1}월{" "}
+            {today.getDate()}일
+          </p>
           <button
             onClick={() =>
-              setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1))
+              setCurrentDate(
+                new Date(
+                  currentDate.getFullYear(),
+                  currentDate.getMonth() + 1,
+                  1
+                )
+              )
             }
             className="btn-arrow next"
           >
@@ -86,7 +101,12 @@ function Header({ currentDate, setCurrentDate, today }) {
           </button>
         </h1>
 
-        <button onClick={() => setCurrentDate(today)} className="btn-basic today">오늘</button>
+        <button
+          onClick={() => setCurrentDate(today)}
+          className="btn-basic today"
+        >
+          오늘
+        </button>
 
         <div className="util">
           <div className="util-planer">
@@ -95,8 +115,12 @@ function Header({ currentDate, setCurrentDate, today }) {
               <option value="group">가족 일정</option>
             </select>
           </div>
-          <a href="#" className="btn-basic" data-util="setting">그룹 설정</a>
-          <a href="#" className="btn-basic color" data-util="schedule">일정 등록하기</a>
+          <a href="#" className="btn-basic" data-util="setting">
+            그룹 설정
+          </a>
+          <a href="#" className="btn-basic color" data-util="schedule">
+            일정 등록하기
+          </a>
 
           <a ref={profileRef} className="profile">
             <img

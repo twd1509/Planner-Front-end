@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { createContext, useState } from "react";
 
 export const AuthContext = createContext();
@@ -11,3 +12,8 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+=======
+import { createContext } from "react";
+
+export const AuthContext = createContext(null);
+>>>>>>> origin/main

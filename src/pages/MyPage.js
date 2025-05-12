@@ -18,7 +18,10 @@ function MyPage() {
       .then((res) => {
         if (res.status === 401) {
           alert("세션이 만료되었습니다. 다시 로그인 해주세요.");
+<<<<<<< HEAD
           sessionStorage.setItem("redirectAfterLogin", "/mypage");
+=======
+>>>>>>> origin/main
           window.location.href = "/login";
           return null;
         }

@@ -6,9 +6,21 @@ import { formatPhoneNumber } from "../utils/functions";
 
 function LoginPage() {
   const containerRef = useRef(null);
+<<<<<<< HEAD
   const { setUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
+=======
+  const { user, setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user?.id) {
+      window.location.href = "/";
+    }
+  }, [user, navigate]);
+
+>>>>>>> origin/main
   const [isSignUp, setIsSignUp] = useState(false);
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPw, setLoginPw] = useState("");
@@ -28,6 +40,7 @@ function LoginPage() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+<<<<<<< HEAD
 
     const res = await fetch("http://localhost:8080/member/login", {
       method: "POST",
@@ -46,6 +59,27 @@ function LoginPage() {
       window.location.href = redirectPath;
     } else {
       alert("로그인 실패");
+=======
+    try {
+      const res = await fetch("http://localhost:8080/member/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ email: loginEmail, pw: loginPw }),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        localStorage.setItem("userInfo", JSON.stringify(data));
+        alert("로그인 성공!");
+        window.location.href = "/";
+      } else {
+        const errorData = await res.text();
+        throw new Error(errorData);
+      }
+    } catch (error) {
+      alert("로그인 실패 : " + error.message);
+>>>>>>> origin/main
     }
   };
 
@@ -65,6 +99,10 @@ function LoginPage() {
 
       if (!res.ok) throw new Error("Signup failed");
 
+<<<<<<< HEAD
+=======
+      const data = await res.text();
+>>>>>>> origin/main
       alert("회원가입 성공!");
       window.location.href = "/";
 
@@ -83,6 +121,7 @@ function LoginPage() {
             <form onSubmit={handleSignup}>
               <h1>Create Account</h1>
               <div className="social-links">
+<<<<<<< HEAD
                 <div><a href="#"><i className="fa fa-facebook" /></a></div>
                 <div><a href="#"><i className="fa fa-twitter" /></a></div>
                 <div><a href="#"><i className="fa fa-linkedin" /></a></div>
@@ -92,6 +131,41 @@ function LoginPage() {
               <input type="email" placeholder="Email" value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)} required />
               <input type="text" placeholder="Phone" value={signupPhone} onChange={(e) => setSignupPhone(formatPhoneNumber(e.target.value))} maxLength={13} />
               <input type="password" placeholder="Password" value={signupPw} onChange={(e) => setSignupPw(e.target.value)} required />
+=======
+                <div><a href="#"><i className="fa fa-facebook" aria-hidden="true"></i></a></div>
+                <div><a href="#"><i className="fa fa-twitter" aria-hidden="true"></i></a></div>
+                <div><a href="#"><i className="fa fa-linkedin" aria-hidden="true"></i></a></div>
+              </div>
+              <span>or use your email for registration</span>
+              <input
+                type="text"
+                placeholder="Name"
+                value={signupName}
+                onChange={(e) => setSignupName(e.target.value)}
+                required
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                value={signupEmail}
+                onChange={(e) => setSignupEmail(e.target.value)}
+                required
+              />
+              <input
+                type="text"
+                placeholder="Phone"
+                value={signupPhone}
+                onChange={(e) => setSignupPhone(formatPhoneNumber(e.target.value))}
+                maxLength={13}
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                value={signupPw}
+                onChange={(e) => setSignupPw(e.target.value)}
+                required
+              />
+>>>>>>> origin/main
               <button className="form_btn" type="submit">Sign Up</button>
             </form>
           </div>
@@ -101,6 +175,7 @@ function LoginPage() {
             <form onSubmit={handleLogin}>
               <h1>Sign In</h1>
               <div className="social-links">
+<<<<<<< HEAD
                 <div><a href="#"><i className="fa fa-facebook" /></a></div>
                 <div><a href="#"><i className="fa fa-twitter" /></a></div>
                 <div><a href="#"><i className="fa fa-linkedin" /></a></div>
@@ -110,6 +185,35 @@ function LoginPage() {
               <input type="password" placeholder="Password" value={loginPw} onChange={(e) => setLoginPw(e.target.value)} required />
               <button className="form_btn" type="submit">Sign In</button>
               <button type="button" className="form_btn" onClick={() => navigate("/find")}>Find</button>
+=======
+                <div><a href="#"><i className="fa fa-facebook" aria-hidden="true"></i></a></div>
+                <div><a href="#"><i className="fa fa-twitter" aria-hidden="true"></i></a></div>
+                <div><a href="#"><i className="fa fa-linkedin" aria-hidden="true"></i></a></div>
+              </div>
+              <span>or use your account</span>
+              <input
+                type="email"
+                placeholder="Email"
+                value={loginEmail}
+                onChange={(e) => setLoginEmail(e.target.value)}
+                required
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                value={loginPw}
+                onChange={(e) => setLoginPw(e.target.value)}
+                required
+              />
+              <button className="form_btn" type="submit">Sign In</button>
+              <button
+                type="button"
+                className="form_btn"
+                onClick={() => navigate("/find")}
+              >
+                Find
+              </button>
+>>>>>>> origin/main
             </form>
           </div>
 
