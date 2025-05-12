@@ -1,0 +1,79 @@
+@charset "utf-8";
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+
+:root{
+    --point-color:#C39D6D;
+    --black-01:#111;
+    --black-02:#888;
+    --black-03:#aaa;
+    --white:#fff;
+    --red:#F00C0C;
+
+    --border-01:#ddd;
+
+    --bg-01:#f0f0f0;
+    --bg-02:#fafafa;
+
+    --font-14:14px;
+    --font-15:15px;
+    --font-24:24px;
+}
+
+/* common */
+.wrap {position: relative; padding:0 40px;}
+
+.profile {overflow: hidden; width: 40px; height: 40px; border-radius: 100%; border: 1px solid var(--border-01);}
+.profile img {width: 100%; height: 100%; object-fit: cover;}
+.profile:not(:has(img)) {background: url(../img/profile.svg) no-repeat center / cover;}
+
+
+/* btn */
+.btn-arrow {position: relative; display: block; width: 40px; height: 40px; font-size: 0; border-radius: 100%; transition:all .3s;}
+.btn-arrow::after {position: absolute; left: 0; top: 0; content:''; width: 100%; height: 100%; border-radius: 100%; background: url(../img/arrow.svg) no-repeat center / 8px;}
+.btn-arrow:hover {background-color: var(--bg-01);}
+.btn-arrow.prev::after {transform: scaleX(-1);}
+
+.btn-basic {display: inline-flex; align-items: center; min-height: 40px; padding:10px 17px; font-size: var(--font-14); font-weight: 600; border-radius: 50px; border: 1px solid var(--border-01); transition: .3s;}
+.btn-basic:hover {color: var(--point-color); border-color:var(--point-color);}
+
+.btn-basic.color {color: var(--white); background: var(--point-color); border-color: var(--point-color);}
+.btn-basic.color:hover {background: var(--black-01); border-color: transparent;}
+
+/* header */
+#header .wrap {display: flex; align-items: center; height: 80px;}
+#header h1 {display:inline-flex; align-items: center; margin-right: 15px;}
+#header h1 p {margin: 0 15px; font-size: var(--font-24); font-weight: 700;}
+#header .util {display: inline-flex; align-items: center; column-gap: 6px; margin-left: auto;}
+#header .util .profile {margin-left: 9px;}
+[data-util="setting"],
+[data-util="schedule"] {padding-left: 15px;}
+[data-util="setting"]::before,
+[data-util="schedule"]::before {content:''; width: 14px; height: 14px; margin-right: 7px; background-position: center; background-repeat: no-repeat; background-size: contain; transition: .3s;}
+[data-util="setting"]::before {background-image: url(../img/ic-setting.svg);}
+[data-util="schedule"]::before {background-image: url(../img/plus_w.svg);}
+[data-util="setting"]:hover::before {background-image: url(../img/ic-setting_c.svg);}
+
+.util-planer {position: relative; font-size: var(--font-14); border-radius: 50px; border: 1px solid var(--border-01); transition: .3s;}
+.util-planer::after {position: absolute; left: 17px; top: 0; content:''; width: 14px; height: 40px; background: url(../img/ic-calendar.svg) no-repeat center / contain; transition: .3s;}
+.util-planer select {padding: 0 40px; font-weight: 500; border: none; border-radius: 50px; background-position: 88% 50% !important; background-size: 9px !important;}
+.util-planer:hover {border-color: var(--point-color);}
+
+/* container */
+#container {height: calc(100% - 80px); padding-bottom: 40px;}
+#container .wrap,
+#container table {width: 100%; height: 100%;}
+#container thead {border-bottom: 1px solid var(--border-01);}
+#container thead th {width: calc(100% / 7); height: 40px; vertical-align: middle; font-size: var(--font-14); font-weight: 600; color: var(--black-03); text-align: center;}
+#container tbody {height: 100%;}
+#container tbody tr {height: 20%; border-bottom: 1px solid var(--border-01);}
+#container tbody td {position: relative; padding: 15px;}
+#container tbody td:first-child i {color: var(--red);}
+#container tbody td:not(:last-child) {border-right: 1px solid var(--border-01);}
+#container tbody td i {position: absolute; right: 10px; top: 10px; display: inline-flex; align-items: center; justify-content: flex-end; width: 28px; height: 28px; padding: 5px; font-size: 14px; font-weight: 600; text-align: right; border-radius: 100%;}
+#container table .disabled {background: var(--bg-02);}
+#container table .disabled i {color: var(--black-03);}
+#container table .today i {color: var(--white); background:var(--red);}
+
+.event {position: absolute; left:0; top: 48px; width: 100%; padding: 6px; font-weight: 600; font-size: var(--font-14); text-align: center;}
+[data-color="green"] {color: #00B22F; background: rgba(228, 255, 217, .8);}
+[data-color="blue"] {width: calc(300% + 2px); color: #0069F4; background: rgba(227, 239, 255, .8);}
